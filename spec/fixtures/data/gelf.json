@@ -1,0 +1,21 @@
+{
+  "servers": [ {
+    "port": "1099",
+    "host": "w2",
+    "alias": "puppetserver",
+    "queries": [ {
+      "obj": "java.lang:type=Memory",
+      "attr": [ "HeapMemoryUsage", "NonHeapMemoryUsage" ],
+      "outputWriters" : [ {
+        "@class": "com.googlecode.jmxtrans.model.output.gelf.GelfWriterFactory",
+        "host": "gelf.example.com",
+        "port": 12201,
+        "additionalFields": {
+          "tags": [
+            "test-tag"
+          ]
+        }
+      } ]
+    } ]
+  } ]
+}

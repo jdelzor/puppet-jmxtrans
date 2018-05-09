@@ -28,6 +28,11 @@
 #   - `root` [String] to configure the `rootPrefix`
 #   - `boolean_as_number` [String] to configure the `booleanAsNumber`
 #
+# @param gelf [Hash] (optional) The GelfWriter configuration. Passing a hash with
+#   `host`and `port` will configure the GelfWriter for each query on this object, so
+#   you don't have to do it manually. You may also set additional parameters as documented
+#   in the [JMXTrans Wiki](https://github.com/jmxtrans/jmxtrans/wiki/GELFWriter)
+#
 # @param queries [Array] An array of queries to configure on the object. These
 #   consist of hashes of the form:
 #
@@ -69,6 +74,23 @@ define jmxtrans::query (
     Optional[root] => String[1],
     Optional[boolean_as_number] => Boolean,
   }]] $graphite = undef,
+
+  Optional[Struct[{
+    host => String[1],
+    port => Integer[1],
+    Optional[additionalFields] => Hash,
+    Optional[transport] => String,
+    Optional[queueSize] => Integer,
+    Optional[connectTimeout] => Integer,
+    Optional[reconnectDelay] => Integer,
+    Optional[tcpNoDelay] => Boolean,
+    Optional[sendBufferSize] => Integer,
+    Optional[tlsEnabled] => Boolean,
+    Optional[tlsTrustCertChainFile] => String,
+    Optional[tlsCertVerificationEnabled] => Boolean,
+    Optional[tcpKeepAlive] => Boolean,
+    Optional[maxInflightSends] => Integer,
+  }]] $gelf = undef,
 
   Optional[Array[Struct[{
     object => String[1],
@@ -117,7 +139,15 @@ define jmxtrans::query (
         $stdout_writer = []
       }
 
-      $writers = $specific_writers + $graphite_writer + $stdout_writer
+      if $gelf {
+        $gelf_writer = [jmxtrans::merge_notundef({
+          '@class' => 'com.googlecode.jmxtrans.model.output.gelf.GelfWriterFactory'
+        }, $gelf)]
+      } else {
+        $gelf_writer = []
+      }
+
+      $writers = $specific_writers + $graphite_writer + $stdout_writer + $gelf_writer
 
       if $writers !~ Array[Data, 1] {
         fail("No outputWriter set on jmxtrans::query '${title}' for query object '${value['object']}'")
