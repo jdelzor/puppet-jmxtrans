@@ -28,24 +28,24 @@ class jmxtrans::install {
     }
 
     # dpkg does'nt support installing from a URL, so this downloads a source file from a URL if one is provided.
-    if $provider == 'dpkg' and $::jmxtrans::package_source.match(/^http.*/) {
+    if $provider == 'dpkg' and $jmxtrans::package_source.match(/^http.*/) {
 
       archive { '/tmp/jmxtrans.deb':
-        source => $::jmxtrans::package_source,
+        source => $jmxtrans::package_source,
       }
 
-      package { $::jmxtrans::package_name:
-        ensure   => $::jmxtrans::package_version,
+      package { $jmxtrans::package_name:
+        ensure   => $jmxtrans::package_version,
         provider => $provider,
         source   => '/tmp/jmxtrans.deb',
         require  => Archive['/tmp/jmxtrans.deb'],
       }
     } else {
 
-      package { $::jmxtrans::package_name:
-        ensure   => $::jmxtrans::package_version,
+      package { $jmxtrans::package_name:
+        ensure   => $jmxtrans::package_version,
         provider => $provider,
-        source   => $::jmxtrans::package_source,
+        source   => $jmxtrans::package_source,
       }
     }
   }
