@@ -12,7 +12,7 @@
 # value for the `$::jmxtrans::package_provider` parameter.
 #
 class jmxtrans::install {
-  include ::jmxtrans
+  include jmxtrans
 
   if $::jmxtrans::package_name {
     if $::jmxtrans::package_provider {

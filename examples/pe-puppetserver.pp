@@ -8,19 +8,19 @@
 # This is where PE configures the JAVA_ARGS for pe-puppetserver. You would
 # actually want to set this in hiera or the PE Node Classifier, or manually
 # manage the default JAVA_ARGS for the service some other way.
-class { '::puppet_enterprise::profile::master':
+class { 'puppet_enterprise::profile::master':
   java_args => {
     'Dcom.sun.management.jmxremote.port'         =>  '=1099',
     'Dcom.sun.management.jmxremote.authenticate' => '=false',
     'Dcom.sun.management.jmxremote.ssl'          => '=false',
-  }
+  },
 }
 
 # This assumes that you have already placed the jmxtrans package into some repo
 # configured on the node in question. Neither EL nor Debian has a jmxtrans
 # package in its repository as of the time of this writing, and the project
 # does not provide a repository either.
-class { '::jmxtrans':
+class { 'jmxtrans':
   package_name => 'jmxtrans',
   service_name => 'jmxtrans',
 }
