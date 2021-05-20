@@ -191,4 +191,34 @@ describe 'jmxtrans::query' do
       })
     end
   end
+
+  context 'jmxtrans::query gelf' do
+    let(:title) { 'puppetserver' }
+    let(:params) {{
+        :host     => 'w2',
+        :port     => 1099,
+        :gelf => {
+            'host' => 'gelf.example.com',
+            'port' => 12201,
+            'additionalFields' => {
+                'tags' => ['test-tag']
+            }
+        },
+        :queries  => [{
+                          'object' => 'java.lang:type=Memory',
+                          'attributes' => [ 'HeapMemoryUsage', 'NonHeapMemoryUsage' ]
+                      }]
+    }}
+
+    output = File.read(File.join(fixture_dir, 'gelf.json'))
+
+    it do
+      is_expected.to contain_file('/var/lib/jmxtrans/puppetserver.json').with({
+                                                                                  :ensure  => 'file',
+                                                                                  :owner   => 'jmxtrans',
+                                                                                  :mode    => '0640',
+                                                                                  :content => check_json_string(output)
+                                                                              })
+    end
+  end
 end

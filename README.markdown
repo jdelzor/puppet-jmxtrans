@@ -125,7 +125,7 @@ on port 1099, and it will:
    `metrics:name=puppetlabs.${facts['hostname']}.jruby.num-free-jrubies` and
    write it to `/tmp/puppetserver-jruby-metrics.txt`.
    
-If you intend to use the GraphiteWriter or StdoutWriter on all the objects for
+If you intend to use the GraphiteWriter, StdoutWriter or GelfWriter on all the objects for
 the server, there are top level parameters that you can set which will be
 inherited by all the query objects.
 
@@ -258,6 +258,12 @@ do it manually. You may also set:
 
  - `root` (String] to configure the `rootPrefix`
  - `boolean_as_number` (String] to configure the `booleanAsNumber`
+
+##### `gelf` (Hash) (optional)
+
+The GelfWriter configuration. Passing a hash with `host`and `port` will configure the GelfWriter for
+each query on this object, so you don't have to do it manually. You may also set additional parameters
+as documented in the [JMXTrans Wiki](https://github.com/jmxtrans/jmxtrans/wiki/GELFWriter)
 
 ##### `queries` (Array)
 
