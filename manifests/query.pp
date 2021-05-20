@@ -100,7 +100,7 @@ define jmxtrans::query (
     Optional[writers] => Array[Hash],
   }]]] $queries = undef,
 ) {
-  include ::jmxtrans
+  include jmxtrans
 
   if $ensure == 'present' {
     if ! $port {
@@ -141,7 +141,7 @@ define jmxtrans::query (
 
       if $gelf {
         $gelf_writer = [jmxtrans::merge_notundef({
-          '@class' => 'com.googlecode.jmxtrans.model.output.gelf.GelfWriterFactory'
+          '@class' => 'com.googlecode.jmxtrans.model.output.gelf.GelfWriterFactory',
         }, $gelf)]
       } else {
         $gelf_writer = []
@@ -163,7 +163,7 @@ define jmxtrans::query (
           'obj'           => $value['object'],
           'attr'          => $value['attributes'],
           'outputWriters' => $writers,
-        }, $extras)
+        }, $extras),
       ]
     }
 
@@ -177,10 +177,10 @@ define jmxtrans::query (
       'servers' => [
         jmxtrans::merge_notundef({
           'host'    => $host,
-          'port'    => "${port}",
+          'port'    => $port,
           'alias'   => $title,
           'queries' => $query_list,
-        }, $extras)
+        }, $extras),
       ],
     }
 
@@ -189,14 +189,14 @@ define jmxtrans::query (
       owner   => $::jmxtrans::user,
       mode    => '0640',
       content => jmxtrans::to_json($data_hash),
-      require => Class['::jmxtrans::install'],
-      notify  => Class['::jmxtrans::service'],
+      require => Class['jmxtrans::install'],
+      notify  => Class['jmxtrans::service'],
     }
   } else {
     file { "${::jmxtrans::config_directory}/${title}.json":
       ensure  => absent,
-      require => Class['::jmxtrans::install'],
-      notify  => Class['::jmxtrans::service'],
+      require => Class['jmxtrans::install'],
+      notify  => Class['jmxtrans::service'],
     }
   }
 }

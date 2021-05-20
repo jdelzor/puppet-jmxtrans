@@ -60,11 +60,11 @@ class jmxtrans (
   String[1] $config_directory = '/var/lib/jmxtrans',
   String[1] $user = 'jmxtrans',
 ) {
-  contain ::jmxtrans::config
-  contain ::jmxtrans::install
-  contain ::jmxtrans::service
+  contain jmxtrans::config
+  contain jmxtrans::install
+  contain jmxtrans::service
 
-  Class['::jmxtrans::install'] -> Class['::jmxtrans::config']
-  Class['::jmxtrans::config']  ~> Class['::jmxtrans::service']
-  Class['::jmxtrans::install'] ~> Class['::jmxtrans::service']
+  Class['jmxtrans::install'] -> Class['jmxtrans::config']
+  Class['jmxtrans::config']  ~> Class['jmxtrans::service']
+  Class['jmxtrans::install'] ~> Class['jmxtrans::service']
 }

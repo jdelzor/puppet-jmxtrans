@@ -3,7 +3,7 @@
 # This class is used to configure the jmxtrans config files
 #
 class jmxtrans::config {
-  include ::jmxtrans
+  include jmxtrans
 
   if $::jmxtrans::manage_service_file {
     case $facts['service_provider'] {
@@ -20,8 +20,8 @@ class jmxtrans::config {
             'systemd_environment_file' => $::jmxtrans::systemd_environment_file,
           }),
         }
-        ~>
-        exec { 'jmxtrans systemctl daemon-reload':
+
+        ~> exec { 'jmxtrans systemctl daemon-reload':
           command     => 'systemctl daemon-reload',
           refreshonly => true,
           path        => $facts['path'],

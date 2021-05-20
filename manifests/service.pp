@@ -4,7 +4,7 @@
 # undef, this class does nothing.
 #
 class jmxtrans::service {
-  include ::jmxtrans
+  include jmxtrans
 
   if $::jmxtrans::service_name {
     service { $::jmxtrans::service_name:

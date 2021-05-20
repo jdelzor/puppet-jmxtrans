@@ -1,6 +1,6 @@
 {
   "servers": [ {
-    "port": "1099",
+    "port": 1099,
     "host": "w2",
     "alias": "puppetserver",
     "queries": [ {
