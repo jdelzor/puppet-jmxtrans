@@ -1,0 +1,59 @@
+---
+dist: xenial
+language: ruby
+cache: bundler
+before_install:
+  - bundle -v
+  - rm -f Gemfile.lock
+  - gem update --system $RUBYGEMS_VERSION
+  - gem --version
+  - bundle -v
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+script:
+  - bundle exec rake $CHECK
+bundler_args: "--without system_tests"
+rvm:
+  - 2.5.3
+stages:
+  - static
+  - spec
+  - acceptance
+  - if: tag =~ ^v\d
+    name: deploy
+matrix:
+  fast_finish: true
+  include:
+    - env: CHECK="check:symlinks check:git_ignore check:dot_underscore check:test_file
+        rubocop syntax lint metadata_lint"
+      stage: static
+    - env: PUPPET_GEM_VERSION="~> 5.0" CHECK=parallel_spec
+      rvm: 2.4.5
+      stage: spec
+    - env: PUPPET_GEM_VERSION="~> 6.0" CHECK=parallel_spec
+      rvm: 2.5.3
+      stage: spec
+    - env: DEPLOY_TO_FORGE=yes
+      stage: deploy
+    - env: PUPPET_GEM_VERSION="~> 6.0" CHECK=integration_test
+      rvm: 2.5.3
+      script: travis_wait 40 bundle exec rake $CHECK
+      stage: spec
+branches:
+  only:
+    - master
+    - "/^v\\d/"
+notifications:
+  email: false
+deploy:
+  provider: puppetforge
+  user: dodevops
+  password:
+    ecure: "XYLsyXOt86AUM3uBqjBILgS/YZs5E7EFEHPKw9DwfvaJH2vDf+L03wbVqSRRPuq5x2Hy4PFdsMqeFyWwkO9A0sPfqZUWpueSg2PsyintqWDfc7lFOcu1hwjLGTVaYtAbeeIBtJYCb0N84DXENUnrEMNfubBb46yVRgpZcZXZUPGacpWvBQYVYp97RYeKScvLfg/5sBqym19pgATIT5Z/faDWMVip8lrKat5vPR9LdVhzXtavaP98xCgw/mMWs5xRjLmtFTmz+WkTzhsC1NPKJIfSj5Y41LlnpXOmFbuf/LocHqNSTX6hfoTrVnjxAoNfCk50bp6nxUyZR1uyllMIYiYs2S9r6rDgeAtq2EAqBDQPd6SDPaqoJpxs5Kq80jkpwWYBjlyl4QUJgqQrlvm8uJ8PkFRn2EZGckCNmLhYiIDNTrPsk6Clo8Adq6M8dm6nRDuLYFjqC1s+28sKTidoy2duwcMDk9RGkKmPXe+OEccMRJgqt/jO5NH4Ufxj1cNsPrCsuKSRfV/bUaPG3sCslsqxaFZ/wJ7Azgln+oz47rInimaamxzDoFJUtr4uqkV/8ETaAMf1+3jxfIqHLE8aBNzLzH7nNDW+Y1bwhZ0BLBcQ2SVm0Jq4HPapJHohKP7a7Un4QGyE8kZ0Wb4zrejrAqpqccrLNVamDpUgCIeGagM="
+  on:
+    tags: true
+    all_branches: true
+    condition: "$DEPLOY_TO_FORGE = yes"
+env:
+  global:
+    - DOCKER_USERNAME=dodevopsdocker
+    - secure: "TSQCakI8Je7RUkRN1ogKPhqK+FtDTN5f3RtR3IIv+PD0T73W7HdzAt27MN3IaznNHjAT41sqe8qfb/f77vNLsV40E3zwy5M1gVniHiFUMiqCQ/4I5L/xoyaYIwed+PTwmPZpK9Ppp0pAQbmEDajYRwxvCwYyv1GkmmBisOYEC8WE1RpzO4UWyJeg/LfbQ1WDVkV2xb2vCpdDTimbwVUY8ztM3zc3sa49leEC/sCCh2KI+snMTOcqkSPuwwboPCwcCukSd1oWO9jnpRaHsWTQZSaKiGkKo7qmBqLfpwybRvxfN7ofpnrtqc+h4WPovDCHDCVraHzLc0YRW+D3lqbT7kJaReap3VMJHr2+YW6tOxb7b02tjWWbyHtTIZdCt0gM0qvodoO+ojaQsMVv51/CpvaVFwvNgnP+aSVQFpNqWIlEVo5CaHF0U7S+E+FL6pMGvzxy/wKk7T8Iu5tWfCu+Gtp7McWkKXicnnqBWOIUxXgp7S91TKxaeDPKkxqczcCtUv9cvLbTE1c/SkVes9KU0gL+AbhCDeR9klCYALEV3JFn7kOhxu7f7B7zqjYdlMSob2FmDYmurajSVQBBuNsO3aLMAjqgaEH83YbRU1pLVQQZx6iPrmzSMr64Lsj3tt1PwEJinf3LKhOpiHuvD7aZwehhhTVWTuUbdHHlpoxSUPE="
