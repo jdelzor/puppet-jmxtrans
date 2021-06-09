@@ -40,7 +40,7 @@ matrix:
       stage: spec
 branches:
   only:
-    - master
+    - main
     - "/^v\\d/"
 notifications:
   email: false
