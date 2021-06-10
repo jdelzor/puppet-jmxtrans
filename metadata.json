@@ -1,6 +1,6 @@
 {
   "name": "dodevops-jmxtrans",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "dodevops",
   "summary": "Configure metrics data with jmxtrans",
   "license": "Apache-2.0",
