@@ -4,6 +4,7 @@ group :test do
   gem "rake"
   gem "puppet"
   gem "rspec"
+  gem "parallel_tests"
   gem 'rspec-puppet', '~> 2.9'
   gem "puppetlabs_spec_helper"
   gem "puppet_metadata", '~> 0.3.0'
