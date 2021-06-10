@@ -23,28 +23,30 @@
 #      user             => 'java',
 #    }
 #
-# @param package_name [String] (optional) The package to install. Skips managing the package if undef.
+# @param package_name The package to install. Skips managing the package if undef.
 #
-# @param service_name [String] (optional) The service to manage. Skips managing the service if undef.
+# @param service_name The service to manage. Skips managing the service if undef.
 #
-# @param package_source [String] (optional) A URL or local path to get a package from.
+# @param package_source A URL or local path to get a package from.
 #
-# @param package_provider [String] (optional) Used to explicitly set the provider to use to install the package.
+# @param package_provider Used to explicitly set the provider to use to install the package.
 #
-# @param working_directory [String] (optional) Sets the working directory for the jmxtrans processes.
+# @param working_directory Sets the working directory for the jmxtrans processes.
 #
-# @param systemd_environment_file [String] (optional) Path to the file where the environment variables needed by
-# the jmxtrans service should be defined (e.g. '/etc/default/jmxtrans' or '/etc/sysconfig/jmxtrans').
+# @param systemd_environment_file Path to the file where the environment variables needed by
+#   the jmxtrans service should be defined (e.g. '/etc/default/jmxtrans' or '/etc/sysconfig/jmxtrans').
 #
-# @param package_version [String] The version of the package to be installed. Defaults to 'present'.
+# @param manage_service_file Manage the service definition file (systemd/init) for the JMXtrans-Service
 #
-# @param systemd_template [String] Template to be be used to generate the systemd unit. Defaults to 'jmxtrans/jmxtrans.service.pp'
+# @param package_version  The version of the package to be installed. Defaults to 'present'.
 #
-# @param binary_path [String] Path to the jmxtrans executable. Defaults to '/usr/share/jmxtrans/bin/jmxtrans'.
+# @param systemd_template  Template to be be used to generate the systemd unit. Defaults to 'jmxtrans/jmxtrans.service.pp'
 #
-# @param config_directory [String] Where to place JSON configurations. Defaults to '/var/lib/jmxtrans'.
+# @param binary_path  Path to the jmxtrans executable. Defaults to '/usr/share/jmxtrans/bin/jmxtrans'.
 #
-# @param user [String] The user who will own the JSON configurations. Defaults to 'jmxtrans'.
+# @param config_directory  Where to place JSON configurations. Defaults to '/var/lib/jmxtrans'.
+#
+# @param user  The user who will own the JSON configurations. Defaults to 'jmxtrans'.
 #
 class jmxtrans (
   Optional[String[1]] $package_name = undef,

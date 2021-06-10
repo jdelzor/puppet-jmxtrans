@@ -3,37 +3,37 @@
 # configure the GraphiteWriter, or you can pass explicit configuration for any
 # other jmxtrans-supported writer.
 #
-# @param title [String] The resource title is used for the server `alias`.
+# @param title The resource title is used for the server `alias`.
 #
-# @param ensure [String] Whether the configuration should exist or not.
+# @param ensure Whether the configuration should exist or not.
 #
-# @param host [String] The host to connect to JMX on. Defaults to `$title`.
+# @param host The host to connect to JMX on. Defaults to `$title`.
 #
-# @param port [Integer] The port to connect to JMX on.
+# @param port The port to connect to JMX on.
 #
-# @param username [String] (optional) The username to use to connect to JMX.
+# @param username The username to use to connect to JMX.
 #
-# @param password [String] (optional) The password to use to connect to JMX.
+# @param password The password to use to connect to JMX.
 #
-# @param num_threads [Integer] (optional) How many queries to execute
+# @param num_threads How many queries to execute
 #   concurrently. Defaults to `undef`, which will execute the queries serially.
 #
-# @param stdout [Boolean] Set to `true` to enable the StdoutWriter for each
+# @param stdout Set to `true` to enable the StdoutWriter for each
 #   query on this object, so you don't have to do it manually.
 #
-# @param graphite [Hash] (optional) The Graphite configuration.  Passing a hash
+# @param graphite The Graphite configuration.  Passing a hash
 #   with `host` and `port` will configure the GraphiteWriter for each query on
 #   this object, so you don't have to do it manually. You may also set:
 #
 #   - `root` [String] to configure the `rootPrefix`
 #   - `boolean_as_number` [String] to configure the `booleanAsNumber`
 #
-# @param gelf [Hash] (optional) The GelfWriter configuration. Passing a hash with
+# @param gelf The GelfWriter configuration. Passing a hash with
 #   `host`and `port` will configure the GelfWriter for each query on this object, so
 #   you don't have to do it manually. You may also set additional parameters as documented
 #   in the [JMXTrans Wiki](https://github.com/jmxtrans/jmxtrans/wiki/GELFWriter)
 #
-# @param queries [Array] An array of queries to configure on the object. These
+# @param queries An array of queries to configure on the object. These
 #   consist of hashes of the form:
 #
 #   ~~~

@@ -30,6 +30,7 @@ group :development do
   gem "travis-lint"
   gem "puppet-blacksmith"
   gem "guard-rake"
+  gem "puppet-strings"
 end
 
 group :system_tests do
