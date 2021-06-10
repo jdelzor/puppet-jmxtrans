@@ -8,7 +8,7 @@
 #   the value is `undef`. Later values will override earlier values.
 #
 # @return Merged list
-function jmxtrans::merge_notundef(Hash $original, Hash $to_merge) {
+function jmxtrans::merge_notundef(Hash $original, Hash *$to_merge) {
   $to_merge.reduce($original) |$memo1, $new_hash| {
     $new_hash.reduce($original) |$memo, $data| {
       $key = $data[0]
