@@ -31,6 +31,7 @@ group :development do
   gem "puppet-blacksmith"
   gem "guard-rake"
   gem "puppet-strings"
+  gem "github_changelog_generator"
 end
 
 group :system_tests do
