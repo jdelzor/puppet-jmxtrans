@@ -7,6 +7,7 @@ require 'puppet-lint/tasks/puppet-lint'
 require 'puppet-syntax/tasks/puppet-syntax'
 require 'metadata-json-lint/rake_task'
 require 'rubocop/rake_task'
+require 'voxpupuli/acceptance/rake'
 
 # These gems aren't always present, for instance
 # on Travis with --without development
