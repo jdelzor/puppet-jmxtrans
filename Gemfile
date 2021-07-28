@@ -15,7 +15,7 @@ group :test do
   gem 'rubocop-rspec'
   gem 'simplecov'
   gem 'simplecov-console'
-  gem 'voxpupuli-acceptance', '~> 0.3.0'
+  gem 'voxpupuli-acceptance'
 
   gem "puppet-lint-absolute_classname-check"
   gem "puppet-lint-leading_zero-check"
@@ -31,6 +31,7 @@ group :development do
   gem "puppet-blacksmith"
   gem "guard-rake"
   gem "puppet-strings"
+  gem "github_changelog_generator"
 end
 
 group :system_tests do
