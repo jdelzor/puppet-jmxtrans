@@ -23,6 +23,12 @@ it sends the data it collects.
 
 For more information on jmxtrans, see [the source repo][jmxtrans-source].
 
+### Requirements
+
+This module is not dependent on any java puppet module, however without any java on the system, the startup of jmxtrans will fail. Please 
+take care to have a working java installation on the server (recommended of course with the puppetlabs/java module) and the java binary in 
+the PATH or at least a JAVA_HOME set. The jmxtrans startup script will try to detect the java via one of these ways.
+
 ### Installing jmxtrans
 
 If you have a repository configured on the system with a `jmxtrans` package

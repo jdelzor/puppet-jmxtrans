@@ -110,6 +110,8 @@ end
 
 PuppetSyntax.exclude_paths = exclude_paths
 
+task :beaker => "spec_prep"
+
 desc "Run acceptance tests"
 RSpec::Core::RakeTask.new(:acceptance) do |t|
   t.pattern = 'spec/acceptance'
