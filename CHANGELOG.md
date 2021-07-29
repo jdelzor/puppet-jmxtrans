@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v0.1.5](https://github.com/dodevops/puppet-jmxtrans/tree/v0.1.5) (2021-07-29)
+
+[Full Changelog](https://github.com/dodevops/puppet-jmxtrans/compare/v0.1.4...v0.1.5)
+
+### Added
+
+- Fixing module dependencies in metadata.json [\#10](https://github.com/dodevops/puppet-jmxtrans/pull/10) ([timdeluxe](https://github.com/timdeluxe))
+
 ## [v0.1.4](https://github.com/dodevops/puppet-jmxtrans/tree/v0.1.4) (2021-07-28)
 
 [Full Changelog](https://github.com/dodevops/puppet-jmxtrans/compare/v0.1.3...v0.1.4)
