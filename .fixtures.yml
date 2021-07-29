@@ -3,5 +3,11 @@ fixtures:
     java:
       repo: "puppetlabs/java"
       ref: "6.5.0"
+    stdlib:
+      repo: "puppetlabs/stdlib"
+      ref: "6.6.0"
+    archive:
+      repo: "puppet/archive"
+      ref: "4.6.0"
   symlinks:
     jmxtrans: "#{source_dir}"
