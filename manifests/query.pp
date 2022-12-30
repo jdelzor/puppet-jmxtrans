@@ -170,7 +170,6 @@ define jmxtrans::query (
     $extras = {
       'username'        => $username,
       'password'        => $password,
-      'numQueryThreads' => $num_threads,
     }
 
     $data_hash = {
